@@ -123,7 +123,7 @@ class LogStash::Event
   # field-related access
   public
   def [](str)
-    if str[0,1] == "+"
+    if str.start_with? "+".freeze
     else
       return LogStash::Util::FieldReference.exec(str, @data)
     end
@@ -266,7 +266,7 @@ class LogStash::Event
 
   def tag(value)
     # Generalize this method for more usability
-    self["tags"] ||= []
-    self["tags"] << value unless self["tags"].include?(value)
+    self["tags".freeze] ||= []
+    self["tags".freeze] << value unless self["tags".freeze].include?(value)
   end
 end # class LogStash::Event
